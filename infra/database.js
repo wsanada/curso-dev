@@ -1,16 +1,16 @@
 import { Client } from "pg";
 
 async function query(queryObject) {
-  let client
+  let client;
   try {
-    client = await getNewClient()
-    const result = await client.query(queryObject)
-    return result
+    client = await getNewClient();
+    const result = await client.query(queryObject);
+    return result;
   } catch (err) {
-    console.error(err)
-    throw err
+    console.error(err);
+    throw err;
   } finally {
-    await client.end()
+    await client.end();
   }
 }
 
@@ -23,8 +23,8 @@ async function getNewClient() {
     password: process.env.POSTGRES_PASSWORD,
     ssl: getSSLValues(),
   });
-  await client.connect()
-  return client
+  await client.connect();
+  return client;
 }
 
 export default {
@@ -36,8 +36,8 @@ function getSSLValues() {
   if (process.env.POSTGRES_CA) {
     return {
       ca: process.env.POSTGRES_CA,
-    }
+    };
   }
 
-  return process.env.NODE_ENV === 'production' ? true : false
+  return process.env.NODE_ENV === "production" ? true : false;
 }
